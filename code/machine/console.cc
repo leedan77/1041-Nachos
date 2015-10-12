@@ -172,3 +172,38 @@ ConsoleOutput::PutChar(char ch)
     kernel->interrupt->Schedule(this, ConsoleTime, ConsoleWriteInt);
 }
 
+//----------------------------------------------------------------------
+// ConsoleOutput::PutChar()
+//  Write an Int, schedule an interrupt
+//  to occur
+//----------------------------------------------------------------------
+
+void
+ConsoleOutput::PrintInt(int num)
+{
+    char ch[20] = {};
+    char neg = '-';
+    char tmp;
+    int i = 0;
+    int sz;
+    int mid;
+    if(num < 0)
+        WriteFile(writeFileNo, &neg, sizeof(neg));
+    do{
+        ch[i++] = (num % 10 + '0');
+    }while((num /= 10) > 0);
+    sz = i;
+    mid = sz / 2;
+    i = 0;
+    while(i!=mid){
+        tmp = ch[sz-i-1];
+        ch[sz-i-1] = ch[i];
+        ch[i] = tmp;
+        i++;
+    }
+    ch[sz] = '\n';
+    ASSERT(putBusy == FALSE);
+    WriteFile(writeFileNo, ch, sizeof(ch));
+    putBusy = TRUE;
+    kernel->interrupt->Schedule(this, ConsoleTime, ConsoleWriteInt);
+}

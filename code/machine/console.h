@@ -72,7 +72,7 @@ class ConsoleOutput : public CallBackObj {
     ConsoleOutput(char *writeFile, CallBackObj *toCall);
 				// initialize hardware console output 
     ~ConsoleOutput();		// clean up console emulation
-
+    void PrintInt(int num); // Write an Int.
     void PutChar(char ch);	// Write "ch" to the console display, 
 				// and return immediately.  "callWhenDone" 
 				// will called when the I/O completes. 

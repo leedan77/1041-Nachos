@@ -34,6 +34,7 @@
 #define SC_ExecV	13
 #define SC_ThreadExit   14
 #define SC_ThreadJoin   15
+#define SC_PrintInt 16
 #define SC_Add		42
 #define SC_MSG		100
 
@@ -177,6 +178,10 @@ int ThreadJoin(ThreadId id);
  */
 void ThreadExit(int ExitCode);	
 
+/*
+ * Print the number.
+ */
+void PrintInt(int num);
 #endif /* IN_ASM */
 
 #endif /* SYSCALL_H */

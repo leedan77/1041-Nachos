@@ -74,7 +74,21 @@ ExceptionHandler(ExceptionType which)
 			SysHalt();
 			ASSERTNOTREACHED();
 			break;
-		case SC_Create:
+        //add SC_PrintInt
+		case SC_PrintInt:
+            DEBUG(dbgSys, "PrintInt" << kernel->machine->ReadRegister(4) << "\n");
+            SysPrintInt((int)kernel->machine->ReadRegister(4));
+            {
+			kernel->machine->WriteRegister(PrevPCReg, kernel->machine->ReadRegister(PCReg));
+			kernel->machine->WriteRegister(PCReg, kernel->machine->ReadRegister(PCReg) + 4);
+			kernel->machine->WriteRegister(NextPCReg, kernel->machine->ReadRegister(PCReg)+4);
+            }
+            return;
+
+            ASSERTNOTREACHED();
+
+            break;
+        case SC_Create:
 			val = kernel->machine->ReadRegister(4);
 			{
 			char *filename = &(kernel->machine->mainMemory[val]);

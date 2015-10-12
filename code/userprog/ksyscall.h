@@ -34,5 +34,10 @@ int SysCreate(char *filename)
 	return kernel->interrupt->CreateFile(filename);
 }
 
+void SysPrintInt(int num)
+{
+  kernel->synchConsoleOut->PrintInt(num);
+}
+
 
 #endif /* ! __USERPROG_KSYSCALL_H__ */
